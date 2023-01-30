@@ -915,65 +915,6 @@ namespace WindowsFormsApp1
             //e.Graphics.DrawString(label5.Text, label5.Font, Brushes.Black, -(textSize.Width / 2), -(textSize.Height / 2));
         }
 
-        private void dataGridView1_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
-        {
-
-            if (e.ColumnIndex == 2 && e.RowIndex >= 0)
-            {
-                if (dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() == "")
-                    return;
-
-                Dictionary<int, string> defects = new Dictionary<int, string>();
-                var conn = DBWalker.GetConnection(Resources.Server, Resources.User, Resources.Password, Resources.secure);
-                conn.Open();
-                var sql = "SELECT [Name_defect], code  FROM[OTK].[dbo].[Table_Defect] where code in ("
-                    + dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value + ")";
-                var command = new SqlCommand(sql, conn);
-                var reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    defects.Add(Convert.ToInt32(reader["code"]), reader["Name_defect"].ToString());
-                }
-                reader.Close();
-                conn.Close();
-                string s = "";
-                foreach (var x in dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Split(','))
-                {
-                    s += defects[Convert.ToInt32(x)] + "\n";
-                }
-                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].ToolTipText = s;
-
-            }
-            else if (e.ColumnIndex == 8 && e.RowIndex >= 0)
-            {
-                if (dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() == "")
-                    return;
-                Dictionary<int, string> repair = new Dictionary<int, string>();
-                var conn = DBWalker.GetConnection(Resources.Server, Resources.User, Resources.Password, Resources.secure);
-                conn.Open();
-                var sql = "SELECT  [IdRepair]      ,[Repair_Description]  FROM[MFU].[dbo].[Table_MouldRepair]  where IdRepair in ("
-                    + dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value + ")";
-                var command = new SqlCommand(sql, conn);
-                var reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    repair.Add(Convert.ToInt32(reader["IdRepair"]), reader["Repair_Description"].ToString());
-                }
-                reader.Close();
-                conn.Close();
-                string s = "";
-                if (repair.Count > 0)
-                {
-                    foreach (var x in dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Split(','))
-                    {
-                        s += repair[Convert.ToInt32(x)] + "\n";
-                    }
-                }
-
-                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].ToolTipText = s;
-            }
-        }
-
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked)
@@ -1019,7 +960,7 @@ namespace WindowsFormsApp1
         }
         int lastcol = -1;
 
-
+        //Вкл\Выкл фильтр
         private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right && (e.ColumnIndex == 2 || e.ColumnIndex == 8))
@@ -1059,7 +1000,7 @@ namespace WindowsFormsApp1
                         bool f = false;
                         foreach (var x in dataGridView1.Rows[i].Cells[lastcol].Value.ToString().Split(','))
                         {
-                            if ((","+dataGridView1.SelectedCells[0].Value.ToString()+",").Contains(","+x+",") && x != "" ||
+                            if ((","+dataGridView1.SelectedCells[0].Value.ToString()+",").Contains("," + x + ",") && x != "" ||
                                 x == "" && dataGridView1.SelectedCells[0].Value.ToString() == "")
                                 f = true;
                         }
@@ -1105,10 +1046,8 @@ namespace WindowsFormsApp1
                             //}
                         }
                         dataGridView1.Rows[i].Visible = (f || colb == 0);
-
                     }
                 }
-               
             }
         }
 

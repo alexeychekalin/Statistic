@@ -128,7 +128,6 @@ namespace WindowsFormsApp1
                             if (result.Length > 0)
                             {
                                 chart1.Series[1].Points.AddXY(mold, result[0]);
-
                                 chart1.Series[2].Points.AddXY(mold, Convert.ToDouble(vol.Text.Split('(')[0]));
                             }
                                 
@@ -140,10 +139,16 @@ namespace WindowsFormsApp1
                                 
 
                             if (result.Length > 1)
+                            {
                                 chart1.Series[0].Points.AddXY(mold, result[1]);
+                            }
+
                             else
-                                chart1.Series[0].Points.AddXY(mold, 0);
-                            //chart1.Series[2].Points.AddXY(mold, Convert.ToDouble(vol.Text.Split('(')[0]));
+                            {
+                                 chart1.Series[0].Points.AddXY(mold, 0);
+                                //chart1.Series[2].Points.AddXY(mold, Convert.ToDouble(vol.Text.Split('(')[0]));
+                            }
+
                         }
                     }
                     else
