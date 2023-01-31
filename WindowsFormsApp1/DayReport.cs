@@ -79,7 +79,7 @@ namespace WindowsFormsApp1
             //d2 = d1.AddHours(12);
             sql =
                 "select count(*) as kol, code_defect from [mfu].[dbo].Table_MouldAction where Time_Action" +
-                " between '" + d2.AddHours(-24).ToString ("yyyy-MM-ddTHH:mm:ss.000") + "' and '" + d2.ToString("yyyy-MM-ddTHH:mm:ss.000") + "'" +
+                " between '" + d1.AddHours(-24).ToString ("yyyy-MM-ddTHH:mm:ss.000") + "' and '" + d2.ToString("yyyy-MM-ddTHH:mm:ss.000") + "'" +
                 " and Mould_Action = 1 and mouldtype = 1" +
                 " and (idFK in (select top 1  num_m from[otk].[dbo].Link_" + comboBox1.Text + " where line = " + Line + "" +
                 " and DT_out < '" + d2.ToString("yyyy-MM-ddTHH:mm:ss.000") + "'" +
@@ -147,7 +147,7 @@ namespace WindowsFormsApp1
 
             sql =
                 "select count(*) as kol, code_defect from [mfu].[dbo].Table_MouldAction where Time_Action" +
-                " between '" + d2.AddHours(-24).ToString("yyyy-MM-ddTHH:mm:ss.000") + "' and '" + d2.ToString("yyyy-MM-ddTHH:mm:ss.000") + "'" +
+                " between '" + d1.AddHours(-24).ToString("yyyy-MM-ddTHH:mm:ss.000") + "' and '" + d2.ToString("yyyy-MM-ddTHH:mm:ss.000") + "'" +
                 " and Mould_Action = 1 and mouldtype = 2" +
                 " and (idFK in (select top 1  num_m from[otk].[dbo].Link_" + comboBox1.Text + " where line = " + Line + "" +
                 " and DT_out < '" + d2.ToString("yyyy-MM-ddTHH:mm:ss.000") + "'" +
@@ -290,7 +290,7 @@ namespace WindowsFormsApp1
                 var conn = DBWalker.GetConnection(Resources.Server, Resources.User, Resources.Password, Resources.secure);
                 conn.Open();
                 string d = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-                d= Regex.Replace(d, @"[(][0-9][)]", "");
+                d= Regex.Replace(d, @"[(][0-9]*[)]", "");
                 d = d.Replace(";", ",");
                 var sql = "SELECT [Name_defect], code  FROM[OTK].[dbo].[Table_Defect] where code in ("
                     + d.Substring(0,d.Length-2) + ")";
@@ -324,7 +324,7 @@ namespace WindowsFormsApp1
                 var conn = DBWalker.GetConnection(Resources.Server, Resources.User, Resources.Password, Resources.secure);
                 conn.Open();
                 string d = dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-                d = Regex.Replace(d, @"[(][0-9][)]", "");
+                d = Regex.Replace(d, @"[(][0-9]*[)]", "");
                 d = d.Replace(";", ",");
                 var sql = "SELECT [Name_defect], code  FROM[OTK].[dbo].[Table_Defect] where code in ("
                     + d.Substring(0, d.Length - 2) + ")";
@@ -357,7 +357,7 @@ namespace WindowsFormsApp1
                 var conn = DBWalker.GetConnection(Resources.Server, Resources.User, Resources.Password, Resources.secure);
                 conn.Open();
                 string d = dataGridView3.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-                d = Regex.Replace(d, @"[(][0-9]+[)]", "");
+                d = Regex.Replace(d, @"[(][0-9]*[)]", "");
                 d = d.Replace(";", ",");
                 var sql = "SELECT [Name_defect], code  FROM[OTK].[dbo].[Table_Defect] where code in ("
                     + d.Substring(0, d.Length - 2) + ")";

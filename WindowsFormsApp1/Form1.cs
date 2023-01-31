@@ -1351,11 +1351,70 @@ namespace WindowsFormsApp1
             //f3.Show();
         }
 
+        private void dataGridView1_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+
+            if (e.ColumnIndex == 2 && e.RowIndex >= 0)
+            {
+                if (dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() == "")
+                    return;
+
+                Dictionary<int, string> defects = new Dictionary<int, string>();
+                var conn = DBWalker.GetConnection(Resources.Server, Resources.User, Resources.Password, Resources.secure);
+                conn.Open();
+                var sql = "SELECT [Name_defect], code  FROM[OTK].[dbo].[Table_Defect] where code in ("
+                    + dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value + ")";
+                var command = new SqlCommand(sql, conn);
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    defects.Add(Convert.ToInt32(reader["code"]), reader["Name_defect"].ToString());
+                }
+                reader.Close();
+                conn.Close();
+                string s = "";
+                foreach (var x in dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Split(','))
+                {
+                    s += defects[Convert.ToInt32(x)] + "\n";
+                }
+                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].ToolTipText = s;
+
+            }
+            else if (e.ColumnIndex == 8 && e.RowIndex >= 0)
+            {
+                if (dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() == "")
+                    return;
+                Dictionary<int, string> repair = new Dictionary<int, string>();
+                var conn = DBWalker.GetConnection(Resources.Server, Resources.User, Resources.Password, Resources.secure);
+                conn.Open();
+                var sql = "SELECT  [IdRepair]      ,[Repair_Description]  FROM[MFU].[dbo].[Table_MouldRepair]  where IdRepair in ("
+                    + dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value + ")";
+                var command = new SqlCommand(sql, conn);
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    repair.Add(Convert.ToInt32(reader["IdRepair"]), reader["Repair_Description"].ToString());
+                }
+                reader.Close();
+                conn.Close();
+                string s = "";
+                if (repair.Count > 0)
+                {
+                    foreach (var x in dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Split(','))
+                    {
+                        s += repair[Convert.ToInt32(x)] + "\n";
+                    }
+                }
+
+                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].ToolTipText = s;
+            }
+        }
+
         private void dataGridView2_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 2 && e.RowIndex >= 0)
             {
-                if (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() == "")
+                if (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() == "" || e.RowIndex>dataGridView1.Rows.Count-1)
                     return;
                 Dictionary<int, string> defects = new Dictionary<int, string>();
                 var conn = DBWalker.GetConnection(Resources.Server, Resources.User, Resources.Password, Resources.secure);
@@ -1381,7 +1440,7 @@ namespace WindowsFormsApp1
             }
             else if (e.ColumnIndex == 8 && e.RowIndex >= 0)
             {
-                if (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == "")
+                if (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() == "")
                     return;
                 Dictionary<int, string> repair = new Dictionary<int, string>();
                 var conn = DBWalker.GetConnection(Resources.Server, Resources.User, Resources.Password, Resources.secure);
