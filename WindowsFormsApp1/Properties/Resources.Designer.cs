@@ -61,17 +61,6 @@ namespace WindowsFormsApp1.Properties {
         }
         
         /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap kisspng_computer_icons_computer_software_encapsulated_post_filter_icopn_5b104ba0f02ed6_1906457215277945929838 {
-            get {
-                object obj = ResourceManager.GetObject("kisspng-computer-icons-computer-software-encapsulated-post-filter-icopn-5b104ba0f" +
-                        "02ed6.1906457215277945929838", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на 1.
         /// </summary>
         internal static string LineControl {
@@ -81,7 +70,7 @@ namespace WindowsFormsApp1.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на A202asd.
+        ///   Ищет локализованную строку, похожую на 12345.
         /// </summary>
         internal static string Password {
             get {
@@ -99,7 +88,7 @@ namespace WindowsFormsApp1.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на WIN-997413F00JC.
+        ///   Ищет локализованную строку, похожую на LAPTOP-ER7P7B6S\SQLEXPRESS.
         /// </summary>
         internal static string Server {
             get {
@@ -108,7 +97,7 @@ namespace WindowsFormsApp1.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Myuser.
+        ///   Ищет локализованную строку, похожую на test.
         /// </summary>
         internal static string User {
             get {

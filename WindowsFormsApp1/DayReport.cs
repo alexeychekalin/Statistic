@@ -79,7 +79,7 @@ namespace WindowsFormsApp1
             //d2 = d1.AddHours(12);
             sql =
                 "select count(*) as kol, code_defect from [mfu].[dbo].Table_MouldAction where Time_Action" +
-                " between '" + d1.ToString("yyyy-MM-ddTHH:mm:ss.000") + "' and '" + d2.ToString("yyyy-MM-ddTHH:mm:ss.000") + "'" +
+                " between '" + d2.AddHours(-24).ToString ("yyyy-MM-ddTHH:mm:ss.000") + "' and '" + d2.ToString("yyyy-MM-ddTHH:mm:ss.000") + "'" +
                 " and Mould_Action = 1 and mouldtype = 1" +
                 " and (idFK in (select top 1  num_m from[otk].[dbo].Link_" + comboBox1.Text + " where line = " + Line + "" +
                 " and DT_out < '" + d2.ToString("yyyy-MM-ddTHH:mm:ss.000") + "'" +
@@ -147,7 +147,7 @@ namespace WindowsFormsApp1
 
             sql =
                 "select count(*) as kol, code_defect from [mfu].[dbo].Table_MouldAction where Time_Action" +
-                " between '" + d1.ToString("yyyy-MM-ddTHH:mm:ss.000") + "' and '" + d2.ToString("yyyy-MM-ddTHH:mm:ss.000") + "'" +
+                " between '" + d2.AddHours(-24).ToString("yyyy-MM-ddTHH:mm:ss.000") + "' and '" + d2.ToString("yyyy-MM-ddTHH:mm:ss.000") + "'" +
                 " and Mould_Action = 1 and mouldtype = 2" +
                 " and (idFK in (select top 1  num_m from[otk].[dbo].Link_" + comboBox1.Text + " where line = " + Line + "" +
                 " and DT_out < '" + d2.ToString("yyyy-MM-ddTHH:mm:ss.000") + "'" +
