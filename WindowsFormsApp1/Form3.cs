@@ -635,9 +635,10 @@ namespace WindowsFormsApp1
 
         }
 
-        private void chart1_Click(object sender, EventArgs e)
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-
+            _ = checkBox1.Checked ? chart1.Series[0].Enabled = false : chart1.Series[0].Enabled = true;
+            
         }
     }
 }

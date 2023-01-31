@@ -148,7 +148,6 @@ namespace WindowsFormsApp1
             this.chart1.Size = new System.Drawing.Size(1684, 328);
             this.chart1.TabIndex = 3;
             this.chart1.Text = "chart2";
-            this.chart1.Click += new System.EventHandler(this.chart1_Click);
             // 
             // chart2
             // 
@@ -207,7 +206,7 @@ namespace WindowsFormsApp1
             this.nameFK.ForeColor = System.Drawing.SystemColors.Control;
             this.nameFK.Location = new System.Drawing.Point(23, 5);
             this.nameFK.Name = "nameFK";
-            this.nameFK.Size = new System.Drawing.Size(57, 16);
+            this.nameFK.Size = new System.Drawing.Size(58, 16);
             this.nameFK.TabIndex = 5;
             this.nameFK.Text = "nameFK";
             // 
@@ -229,7 +228,7 @@ namespace WindowsFormsApp1
             this.weight.ForeColor = System.Drawing.SystemColors.Control;
             this.weight.Location = new System.Drawing.Point(42, 4);
             this.weight.Name = "weight";
-            this.weight.Size = new System.Drawing.Size(45, 16);
+            this.weight.Size = new System.Drawing.Size(46, 16);
             this.weight.TabIndex = 5;
             this.weight.Text = "weight";
             this.weight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -241,7 +240,7 @@ namespace WindowsFormsApp1
             this.date.ForeColor = System.Drawing.SystemColors.Control;
             this.date.Location = new System.Drawing.Point(36, 4);
             this.date.Name = "date";
-            this.date.Size = new System.Drawing.Size(34, 16);
+            this.date.Size = new System.Drawing.Size(35, 16);
             this.date.TabIndex = 5;
             this.date.Text = "date";
             // 
@@ -274,7 +273,7 @@ namespace WindowsFormsApp1
             this.vol.ForeColor = System.Drawing.SystemColors.Control;
             this.vol.Location = new System.Drawing.Point(40, 3);
             this.vol.Name = "vol";
-            this.vol.Size = new System.Drawing.Size(25, 16);
+            this.vol.Size = new System.Drawing.Size(26, 16);
             this.vol.TabIndex = 5;
             this.vol.Text = "vol";
             this.vol.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -286,7 +285,7 @@ namespace WindowsFormsApp1
             this.cap.ForeColor = System.Drawing.SystemColors.Control;
             this.cap.Location = new System.Drawing.Point(33, 3);
             this.cap.Name = "cap";
-            this.cap.Size = new System.Drawing.Size(30, 16);
+            this.cap.Size = new System.Drawing.Size(31, 16);
             this.cap.TabIndex = 5;
             this.cap.Text = "cap";
             // 
@@ -471,6 +470,7 @@ namespace WindowsFormsApp1
             this.checkBox1.TabIndex = 19;
             this.checkBox1.Text = "Спрятать предыдущий замер";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // Form3
             // 
