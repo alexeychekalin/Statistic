@@ -26,7 +26,7 @@ namespace WindowsFormsApp1
             var conn = DBWalker.GetConnection(Resources.Server, Resources.User, Resources.Password, Resources.secure);
             conn.Open();
             DateTime d1 = DateTime.Now;
-            //DateTime d1 = new DateTime(2022, 08, 15, 21, 32, 22);
+           // DateTime d1 = new DateTime(2023, 01, 26, 04, 59, 59);
             d1=d1.AddHours(-24);
             d1=d1.AddMinutes(-d1.Minute);
             d1=d1.AddSeconds(-d1.Second);
@@ -35,9 +35,13 @@ namespace WindowsFormsApp1
             {
                d1= d1.AddHours(8 - d1.Hour);
             }
+            else if(d1.Hour<8)
+            {
+                d1= d1.AddHours( - d1.Hour-4);
+            }
             else
             {
-                d1= d1.AddHours(20 - d1.Hour);
+                d1 = d1.AddHours(-d1.Hour +20);
             }
 
             DateTime d2 = d1;
@@ -105,9 +109,13 @@ namespace WindowsFormsApp1
             {
                 d1 = d1.AddHours(8 - d1.Hour);
             }
+            else if (d1.Hour < 8)
+            {
+                d1 = d1.AddHours(-d1.Hour - 4);
+            }
             else
             {
-                d1 = d1.AddHours(20 - d1.Hour);
+                d1 = d1.AddHours(-d1.Hour + 20);
             }
 
             d2 = d1;
