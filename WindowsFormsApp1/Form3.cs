@@ -221,30 +221,32 @@ namespace WindowsFormsApp1
                 sqlConnection.Open();
                 SqlDataAdapter dataAdapter;
 
-                if (chart2Type1.Checked)
-                {
+               // if (chart2Type1.Checked)
+               // {
                     dataAdapter = new SqlDataAdapter(
                         $" SELECT" +
                         $" CAST(REPLACE(Level_b, ',', '.') as float) AS Level_b," +
                         $" Num_form," +
                         $" Date," +
-                        $" Assortment" +
+                        $" Assortment," +
+                        $" Weight_b" +
                         $" FROM" +
                         $" ( SELECT" +
-                        $" Date, Level_b, Num_form, Assortment" +
+                        $" Date, Level_b, Num_form, Assortment, Weight_b" +
                         $" FROM" +
                         $" [OTK].[dbo].[Weight_Control_2]" +
                         $" WHERE" +
                         $" Num_f = @idFk and Level_b <> 0" +
                         $" UNION SELECT" +
-                        $" Date, Level_b, Num_form, Assortment" +
+                        $" Date, Level_b, Num_form, Assortment, Weight_b" +
                         $" FROM" +
                         $" [OTK].[dbo].[Weight_Control_3]" +
                         $" WHERE" +
                         $" Num_f = @idFk and Level_b <> 0) b", sqlConnection);
 
                     dataAdapter.SelectCommand.Parameters.AddWithValue("@idFK", comboBox1.SelectedItem);
-                }
+                //}
+                /*
                 else
                 {
                      dataAdapter = new SqlDataAdapter(
@@ -257,6 +259,7 @@ namespace WindowsFormsApp1
 
                     dataAdapter.SelectCommand.Parameters.AddWithValue("@idFK", comboBox1.SelectedItem);
                 }
+                */
 
                 var db = new DataSet();
 
@@ -264,44 +267,50 @@ namespace WindowsFormsApp1
                 chart2.Series[1].Points.Clear();
                 chart2.Series[2].Points.Clear();
                 chart2.Series[3].Points.Clear();
-
+    
 
                 if (dataAdapter.Fill(db) != 0)
                 {
-                    double[] res = chart2Type1.Checked ? null : GetValForCalcVolume(comboBox1.SelectedItem.ToString(), sqlConnection);
+                    double res = chart2Type1.Checked ? 0 : GetValForCalcVolume(comboBox1.SelectedItem.ToString(), sqlConnection);
 
                     if (chart1Type1.Checked)
                     {
                         double[] result;
                         foreach (var mold in _moulds)
                         {
-                            if (chart2Type1.Checked)
-                            {
+                           // if (chart2Type1.Checked)
+                           // {
                                 result = db.Tables[0].AsEnumerable()
                                     .OrderByDescending(r => r.Field<DateTime>("Date"))
                                     .Where(r => r.Field<string>("Num_form") == mold.ToString())
                                     .Select(r => r.Field<Double>("Level_b")).ToArray();
-                            }
-                            else
-                            {
-                                result = db.Tables[0].AsEnumerable()
-                                    .OrderByDescending(r => r.Field<DateTime>("Date"))
-                                    .Where(r => r.Field<string>("Number_mould") == mold.ToString())
-                                    .Select(r => r.Field<Double>("Volume")).ToArray();
-                            }
 
+                                var mf = db.Tables[0].AsEnumerable()
+                                    .OrderByDescending(r => r.Field<DateTime>("Date"))
+                                    .Where(r => r.Field<string>("Num_form") == mold.ToString())
+                                    .Select(r => r.Field<Double>("Weight_b")).ToArray();
+                            //}
+                            /*
+                             else
+                             {
+                                 result = db.Tables[0].AsEnumerable()
+                                     .OrderByDescending(r => r.Field<DateTime>("Date"))
+                                     .Where(r => r.Field<string>("Number_mould") == mold.ToString())
+                                     .Select(r => r.Field<Double>("Volume")).ToArray();
+                             }
+                            */
                             if (result.Length > 2)
-                                chart2.Series[0].Points.AddXY(mold, CalcVolume(result[2], res));
+                                chart2.Series[0].Points.AddXY(mold, CalcVolume(result[2], new double[] {res, mf[0] }));
                             else
                                 chart2.Series[0].Points.AddXY(mold, 0);
 
                             if (result.Length > 1)
-                                chart2.Series[1].Points.AddXY(mold, CalcVolume(result[1], res));
+                                chart2.Series[1].Points.AddXY(mold, CalcVolume(result[1], new double[] { res, mf[0] }));
                             else
                                 chart2.Series[1].Points.AddXY(mold, 0);
 
                             if (result.Length > 0)
-                                chart2.Series[2].Points.AddXY(mold, CalcVolume(result[0], res));
+                                chart2.Series[2].Points.AddXY(mold, CalcVolume(result[0], new double[] { res, mf[0] }));
                             else
                                 chart2.Series[2].Points.AddXY(mold, 0);
 
@@ -314,13 +323,19 @@ namespace WindowsFormsApp1
                         double[] result;
                         foreach (var dot in _dots)
                         {
-                            if (chart2Type1.Checked)
-                            {
+                           // if (chart2Type1.Checked)
+                           // {
                                 result = db.Tables[0].AsEnumerable()
                                     .OrderByDescending(r => r.Field<DateTime>("Date"))
                                     .Where(r => r.Field<string>("Num_form") == dot.X.ToString())
                                     .Select(r => r.Field<Double>("Level_b")).ToArray();
-                            }
+
+                                var mf = db.Tables[0].AsEnumerable()
+                                    .OrderByDescending(r => r.Field<DateTime>("Date"))
+                                    .Where(r => r.Field<string>("Num_form") == dot.X.ToString())
+                                    .Select(r => r.Field<Double>("Weight_b")).ToArray();
+                            // }
+                            /*
                             else
                             {
                                 result = db.Tables[0].AsEnumerable()
@@ -328,19 +343,19 @@ namespace WindowsFormsApp1
                                     .Where(r => r.Field<string>("Number_mould") == dot.X.ToString())
                                     .Select(r => r.Field<Double>("Volume")).ToArray();
                             }
-
+                            */
                             if (result.Length > 2)
-                                chart2.Series[0].Points.AddXY(dot.X, CalcVolume(result[2], res));
+                                chart2.Series[0].Points.AddXY(dot.X, CalcVolume(result[2], new double[] { res, mf[0] }));
                             else
                                 chart2.Series[0].Points.AddXY(dot.X, 0);
 
                             if (result.Length > 1)
-                                chart2.Series[1].Points.AddXY(dot.X, CalcVolume(result[1], res));
+                                chart2.Series[1].Points.AddXY(dot.X, CalcVolume(result[1], new double[] { res, mf[0] }));
                             else
                                 chart2.Series[1].Points.AddXY(dot.X, 0);
 
                             if (result.Length > 0)
-                                chart2.Series[2].Points.AddXY(dot.X, CalcVolume(result[0], res));
+                                chart2.Series[2].Points.AddXY(dot.X, CalcVolume(result[0], new double[] { res, mf[0] }));
                             else
                                 chart2.Series[2].Points.AddXY(dot.X, 0);
 
@@ -358,12 +373,12 @@ namespace WindowsFormsApp1
 
                     var delta = chart2Type2.Checked ? _deltaVolume : _deltaWeight;
 
-                   // var minValue = chart2.Series[0].Points.AsEnumerable()
-                   //     .Where(r => r.YValues[0] > 0)
-                   //     .Min(r => r.YValues[0]) - _deltaWeight;
+                    var minValue = chart2.Series[0].Points.AsEnumerable()
+                        .Where(r => r.YValues[0] > 0)
+                        .Min(r => r.YValues[0]) - _deltaWeight;
 
-                    //chart2.ChartAreas[0].AxisY.Minimum = minValue;
-                    //chart2.ChartAreas[0].AxisY.Maximum = chart2.Series[0].Points.FindMaxByValue("Y", 0).YValues[0] + _deltaWeight;
+                    chart2.ChartAreas[0].AxisY.Minimum = minValue;
+                    chart2.ChartAreas[0].AxisY.Maximum = chart2.Series[0].Points.FindMaxByValue("Y", 0).YValues[0] + _deltaWeight;
 
                 }
                 else
@@ -384,11 +399,12 @@ namespace WindowsFormsApp1
 
         private double CalcVolume(double value, double[] res)
         {
-            return chart2Type1.Checked ? value : value - (res[0] - res[1])/2.51;
+            return chart2Type1.Checked ? value : Math.Round(value - (res[0] - res[1])/2.51, 1);
         }
 
-        private double[] GetValForCalcVolume(string idFK, SqlConnection sqlConnection)
+        private double GetValForCalcVolume(string idFK, SqlConnection sqlConnection)
         {
+            /*
             var dataCommand = new SqlCommand(
                 $" SELECT TOP(1) Weight_b FROM (" +
                 $" SELECT" +
@@ -414,8 +430,8 @@ namespace WindowsFormsApp1
                 MessageBox.Show(@"Нет данных измеренного веса для выбранного формокомплекта. В расчетах используется = 0", @"Отсутствуют данные",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
-            dataCommand = new SqlCommand(
+            */
+            var dataCommand = new SqlCommand(
                 $" SELECT TOP(1) W_nom FROM (" +
                 $" SELECT" +
                 $" [OTK].[dbo].[Link_CPS2].W_nom, [OTK].[dbo].[Link_CPS2].DT_out" +
@@ -441,7 +457,7 @@ namespace WindowsFormsApp1
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
-            return new double[2] {Convert.ToDouble(W_nom.Replace(".", ",")), Convert.ToDouble(Weight_b.Replace(".", ",")) };
+            return Convert.ToDouble(W_nom.Replace(".", ","));
         }
 
         private void RePaintWeight(DotVolume dot)
