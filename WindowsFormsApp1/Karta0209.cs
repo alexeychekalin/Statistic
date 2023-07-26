@@ -55,7 +55,7 @@ namespace WindowsFormsApp1
 		                    Data_set,
                             (select MAX([Data_set])
                                 from [MFU].[dbo].[Volume_ex] t2
-                                where t2.N_fk = 353 and  
+                                where t2.N_fk = @idfk and  
                                       CONVERT(datetime, t2.[Data_set], 105) > CONVERT(datetime, t.[Data_set], 105)
                              ) as endDate
                         from [MFU].[dbo].[Volume_ex] t
@@ -101,7 +101,7 @@ namespace WindowsFormsApp1
             {
                 //if (row.Cells.Count == 0) return;
                 sql = @"SELECT 
-		            MAX(FORMAT (Date, 'dd-MM-yy')) as date
+		            MAX(CONVERT(VARCHAR(10), Date, 104) ) as date
                     FROM [MFU].[dbo].[Volume_mess]
                     where Number_fk = @idfk and [Date] between @start and @end group by CAST(Date AS DATE) order by CAST(Date AS DATE)";
 
@@ -121,7 +121,7 @@ namespace WindowsFormsApp1
                 adapter.Fill(dt);
 
                 sql = @"SELECT 
-		                FORMAT (Date, 'dd-MM-yy') as date
+		                CONVERT(VARCHAR(10), Date, 104) as date
                       ,[Volume]
 	                  ,[Number_mould]
                     FROM [MFU].[dbo].[Volume_mess]
