@@ -100,7 +100,8 @@ namespace WindowsFormsApp1
             foreach (DataGridViewRow row in rowMergeView1.Rows)
             {
                 //if (row.Cells.Count == 0) return;
-                sql = @"SELECT 
+                sql = @"set language us_english; 
+                    SELECT 
 		            MAX(CONVERT(VARCHAR(10), Date, 104) ) as date
                     FROM [MFU].[dbo].[Volume_mess]
                     where Number_fk = @idfk and [Date] between @start and @end group by CAST(Date AS DATE) order by CAST(Date AS DATE)";
@@ -120,7 +121,8 @@ namespace WindowsFormsApp1
 
                 adapter.Fill(dt);
 
-                sql = @"SELECT 
+                sql = @" set language us_english;
+                        SELECT 
 		                CONVERT(VARCHAR(10), Date, 104) as date
                       ,[Volume]
 	                  ,[Number_mould]
