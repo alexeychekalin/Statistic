@@ -5,15 +5,17 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using WindowsFormsApp1.Properties;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace WindowsFormsApp1
 {
     public partial class Karta0209 : Form
     {
-        Color[] myColor = new Color[] { Color.Blue, Color.Black, Color.Red, Color.Bisque };
+        Color[] myColor = new Color[] { Color.LightBlue, Color.LightCoral, Color.LightGreen, Color.LightCyan, Color.LightSeaGreen , Color.LightSeaGreen};
 
         public Karta0209()
         {
@@ -36,18 +38,17 @@ namespace WindowsFormsApp1
 
         private void DrawForm(string idfk)
         {
+            /*
             rowMergeView1.Rows.Clear();
             rowMergeView2.Rows.Clear();
-
             rowMergeView2.ColumnHeadersVisible = false;
-
             //this.rowMergeView1.DataSource = dt;
             this.rowMergeView1.ColumnHeadersHeight = 40;
             this.rowMergeView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.rowMergeView2.ColumnHeadersHeight = 40;
             this.rowMergeView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.rowMergeView1.AddSpanHeader(2, 2, "период действия объема");
-
+            */
             var conn = DBWalker.GetConnection(Resources.Server, Resources.User, Resources.Password, Resources.secure);
             conn.Open();
             var sql = @"select 
@@ -59,12 +60,13 @@ namespace WindowsFormsApp1
                                       CONVERT(datetime, t2.[Data_set], 105) > CONVERT(datetime, t.[Data_set], 105)
                              ) as endDate
                         from [MFU].[dbo].[Volume_ex] t
-                        where t.N_fk = @idfk";
+                        where t.N_fk = @idfk order by CONVERT(smalldatetime, t.[Data_set], 103)";
             var command = new SqlCommand(sql, conn);
             command.Parameters.AddWithValue("@idfk", idfk);
             var reader = command.ExecuteReader();
             int i = 1;
 
+            // таблицы
             while (reader.Read())
             {
                 if (rowMergeView1.Rows.Count > 0)
@@ -86,19 +88,49 @@ namespace WindowsFormsApp1
             int colorCount = 0;
             int cnt = 2;
 
-            rowMergeView2.Rows.Add(101);
+            Excel.Application excelApp = new Excel.Application();
+            Excel.Workbook workbook = excelApp.Workbooks.Open(@"D:\Work\Завод бутылок\Статстика\Statistic_Git\WindowsFormsApp1\bin\Debug\0209.xlsx");
+            Excel.Worksheet worksheet = workbook.ActiveSheet;
 
-            for (int r = 0; r < rowMergeView2.Rows.Count - 2; r++)
+           // rowMergeView2.Rows.Add(101);
+
+            int newRows = 0;
+
+            if(rowMergeView1.Rows.Count > 2)
             {
-                rowMergeView2.Rows[r + 2].Cells[0].Value = r + 1;
+                for(int  n = 0; n < rowMergeView1.Rows.Count - 1; n++)
+                {
+                    Excel.Range range2 = ((Excel.Range)worksheet.Cells[3 + n, 1]).EntireRow;
+                    range2.Insert(Excel.XlInsertShiftDirection.xlShiftDown, false);
+                    range2 = ((Excel.Range)worksheet.Cells[3 + 1 + n, 1]).EntireRow;
+                    range2.Copy(((Excel.Range)worksheet.Cells[3 + n, 1]).EntireRow);
+                    worksheet.Cells[3 + 1 + n, 3] = n + 2;
+                    newRows++;
+                }
             }
 
-            rowMergeView2.Rows[1].Cells[0].Value = "Номер формы";
-            rowMergeView2.Rows[1].Cells[1].Value = "Последний замер";
+            for (int r = 0; r < 99; r++)
+            {
+               // rowMergeView2.Rows[r + 2].Cells[0].Value = r + 1;
+                worksheet.Cells[newRows + 8 + r, 1] = r + 1;
+            }
 
+            worksheet.Cells[1, 2] =  idfk;
+            worksheet.Cells[2, 2] = "-";
+            worksheet.Cells[4, 2] = DateTime.Now.ToString("dd-MM-yyyy");
+
+           // rowMergeView2.Rows[1].Cells[0].Value = "Номер формы";
+           // rowMergeView2.Rows[1].Cells[1].Value = "Последний замер";
 
             foreach (DataGridViewRow row in rowMergeView1.Rows)
             {
+                worksheet.Cells[3 + colorCount, 4] = row.Cells[1].Value;
+                Excel.Range range = worksheet.Cells[3 + colorCount, 4];
+                range.Interior.Color = myColor[colorCount];
+                worksheet.Cells[3 + colorCount, 6] = row.Cells[2].Value;
+                worksheet.Cells[3 + colorCount, 8] = row.Cells[3].Value;
+
+
                 //if (row.Cells.Count == 0) return;
                 sql = @"set language us_english; 
                     SELECT 
@@ -140,13 +172,23 @@ namespace WindowsFormsApp1
 
                 adapter2.Fill(dt2);
 
+                worksheet.Range[worksheet.Cells[newRows + 5, cnt + 1], worksheet.Cells[newRows + 5, cnt +dt.Rows.Count]].Merge();
+                worksheet.Range[worksheet.Cells[newRows + 5, cnt + 1], worksheet.Cells[newRows + 5, cnt + dt.Rows.Count]].Interior.Color = myColor[colorCount];
+                worksheet.Range[worksheet.Cells[newRows + 5, cnt + 1], worksheet.Cells[newRows + 5, cnt + dt.Rows.Count]] = "скорректированный и/или установленный обьем " + row.Cells[1].Value + " +-0,25";
+                
+
                 foreach (DataRow tabRow in dt.Rows)
                 {
-                    rowMergeView2.Columns.Add(new DataGridViewColumn() { CellTemplate = new DataGridViewTextBoxCell() });
-                    rowMergeView2.Rows[0].Cells[cnt].Style.BackColor = myColor[colorCount];
-                    rowMergeView2.Rows[1].Cells[cnt].Value = tabRow["date"];
+                   // rowMergeView2.Columns.Add(new DataGridViewColumn() { CellTemplate = new DataGridViewTextBoxCell() });
+                   // rowMergeView2.Rows[0].Cells[cnt].Style.BackColor = myColor[colorCount];
+                   // rowMergeView2.Rows[1].Cells[cnt].Value = tabRow["date"];
 
-                    dt2.AsEnumerable().Where(x => x.Field<string>("date") == tabRow["date"].ToString()).ToList().ForEach(el => rowMergeView2.Rows[Convert.ToInt32(el.Field<string>("Number_mould")) + 1].Cells[cnt].Value = el.Field<string>("Volume"));
+                    worksheet.Cells[newRows + 7, cnt+1] = tabRow["date"];
+                    range = worksheet.Cells[newRows + 7, cnt+1];
+                    range.Interior.Color = myColor[colorCount];
+
+                    //rowMergeView2.Rows[Convert.ToInt32(el.Field<string>("Number_mould")) + 1].Cells[cnt].Value = el.Field<string>("Volume");
+                    dt2.AsEnumerable().Where(x => x.Field<string>("date") == tabRow["date"].ToString()).ToList().ForEach(el => { worksheet.Cells[Convert.ToInt32(el.Field<string>("Number_mould")) + newRows + 7, cnt+1] = el.Field<string>("Volume"); fillColor(Convert.ToInt32(el.Field<string>("Number_mould")) + newRows + 7, cnt + 1, el.Field<string>("Volume"), row.Cells[1].Value.ToString(), worksheet); }) ;
 
                     cnt++;
                 }
@@ -155,9 +197,9 @@ namespace WindowsFormsApp1
             }
 
             sql = @"SELECT 
-		            MAX(Volume) as volume, Number_mould
-                    FROM [MFU].[dbo].[Volume_mess]
-                    where Number_fk = @idfk group by Number_mould";
+		            Volume as volume, Number_mould
+                    FROM [MFU].[dbo].[Volume_mess] as a
+                    where Date = (SELECT MAX(DATE) FROM [MFU].[dbo].[Volume_mess] WHERE Number_mould = a.Number_mould AND Number_fk = @idfk)";
 
             command = new SqlCommand(sql, conn);
             command.Parameters.AddWithValue("@idfk", idfk);
@@ -169,10 +211,40 @@ namespace WindowsFormsApp1
 
             foreach (DataRow item in dt3.Rows)
             {
-                rowMergeView2.Rows[Convert.ToInt32(item["Number_mould"]) + 1].Cells[1].Value = item["Volume"];
+               // rowMergeView2.Rows[Convert.ToInt32(item["Number_mould"]) + 1].Cells[1].Value = item["Volume"];
+                worksheet.Cells[Convert.ToInt32(item["Number_mould"]) + newRows + 7, 2] = item["Volume"];
             }
 
             conn.Close();
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Excels files (*.xlsx)|*.xlsx";
+
+            saveFileDialog.FilterIndex = 0;
+            saveFileDialog.RestoreDirectory = true;
+            saveFileDialog.CreatePrompt = true;
+            saveFileDialog.FileName = null;
+            saveFileDialog.Title = "Где сохранить?";
+            saveFileDialog.ShowDialog();
+
+            workbook.SaveAs(saveFileDialog.FileName);
+            excelApp.Quit();
+            Marshal.ReleaseComObject(workbook);
+            Marshal.ReleaseComObject(excelApp);
+
+            System.Diagnostics.Process.Start(saveFileDialog.FileName);
+
+        }
+
+        private void fillColor(int r, int c, string val, string eq, Excel.Worksheet wh)
+        {
+            var color = Color.White;
+            if (Convert.ToDouble(val) > Convert.ToDouble(eq) + 0.25)
+                color = Color.Red; 
+            else if(Convert.ToDouble(val) < Convert.ToDouble(eq) - 0.25)
+                color = Color.Chocolate;
+            Excel.Range range = wh.Cells[r, c];
+            range.Interior.Color = color;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -181,6 +253,11 @@ namespace WindowsFormsApp1
             label1.Text = "Номер формокомплекта: " + comboBox1.Text;
             // label2.Text = "Наименование ФК: " + comboBox1.Text;
             label4.Text = "Дата отчета: " + DateTime.Now.ToString("dd-MM-yyyy");
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
 
         }
     }
