@@ -656,5 +656,10 @@ namespace WindowsFormsApp1
             _ = checkBox1.Checked ? chart1.Series[0].Enabled = false : chart1.Series[0].Enabled = true;
             
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            new Karta0209(comboBox1.Text);
+        }
     }
 }

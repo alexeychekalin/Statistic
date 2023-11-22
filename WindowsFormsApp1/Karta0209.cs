@@ -36,6 +36,11 @@ namespace WindowsFormsApp1
             //DrawForm();
         }
 
+        public Karta0209(string idfk)
+        {
+            DrawExcel(idfk);
+        }
+
         private void DrawForm(string idfk)
         {
             /*
@@ -261,6 +266,178 @@ namespace WindowsFormsApp1
         private void button1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void DrawExcel(string idfk)
+        {
+            var conn = DBWalker.GetConnection(Resources.Server, Resources.User, Resources.Password, Resources.secure);
+            conn.Open();
+            var sql = @"select 
+                            (cast(REPLACE(Set_min, ',','.') as float) + cast(REPLACE(Set_max, ',','.') as float)) / 2 as avgval,
+		                    Data_set,
+                            (select MAX([Data_set])
+                                from [MFU].[dbo].[Volume_ex] t2
+                                where t2.N_fk = @idfk and  
+                                      CONVERT(datetime, t2.[Data_set], 105) > CONVERT(datetime, t.[Data_set], 105)
+                             ) as endDate
+                        from [MFU].[dbo].[Volume_ex] t
+                        where t.N_fk = @idfk order by CONVERT(smalldatetime, t.[Data_set], 103)";
+            var command = new SqlCommand(sql, conn);
+            command.Parameters.AddWithValue("@idfk", idfk);
+            var reader = command.ExecuteReader();
+
+            var rows = new DataTable();
+            rows.Load(reader);
+
+            reader.Close();
+
+            int colorCount = 0;
+            int cnt = 2;
+
+            Excel.Application excelApp = new Excel.Application();
+            //  Excel.Workbook workbook = excelApp.Workbooks.Open(@"D:\ISKRA\Statistic_Git\отчет 31_07_23\WindowsFormsApp1\bin\Release\0209.xlsx");
+            Excel.Workbook workbook = excelApp.Workbooks.Open(@"0209.xlsx");
+
+            Excel.Worksheet worksheet = workbook.ActiveSheet;
+
+            int newRows = 0;
+
+            if (rows.Rows.Count >= 2)
+            {
+                for (int n = 0; n < rows.Rows.Count - 1; n++)
+                {
+                    Excel.Range range2 = ((Excel.Range)worksheet.Cells[3 + n, 1]).EntireRow;
+                    range2.Insert(Excel.XlInsertShiftDirection.xlShiftDown, false);
+                    range2 = ((Excel.Range)worksheet.Cells[3 + 1 + n, 1]).EntireRow;
+                    range2.Copy(((Excel.Range)worksheet.Cells[3 + n, 1]).EntireRow);
+                    worksheet.Cells[3 + 1 + n, 3] = n + 2;
+                    newRows++;
+                }
+            }
+
+            for (int r = 0; r < 99; r++)
+            {
+                worksheet.Cells[newRows + 8 + r, 1] = r + 1;
+            }
+
+            worksheet.Cells[1, 2] = idfk;
+            worksheet.Cells[2, 2] = "-";
+            worksheet.Cells[4, 2] = DateTime.Now.ToString("dd-MM-yyyy");
+
+            // rowMergeView2.Rows[1].Cells[0].Value = "Номер формы";
+            // rowMergeView2.Rows[1].Cells[1].Value = "Последний замер";
+
+            foreach (DataRow row in rows.Rows)
+            {
+                worksheet.Cells[3 + colorCount, 4] = row["avgval"];
+                Excel.Range range = worksheet.Cells[3 + colorCount, 4];
+                range.Interior.Color = myColor[colorCount];
+                worksheet.Cells[3 + colorCount, 6] = row["Data_Set"];
+                worksheet.Cells[3 + colorCount, 8] = row["endDate"];
+
+
+                //if (row.Cells.Count == 0) return;
+                sql = @"set language us_english; 
+                    SELECT 
+		            MAX(CONVERT(VARCHAR(10), Date, 104) ) as date
+                    FROM [MFU].[dbo].[Volume_mess]
+                    where Number_fk = @idfk and [Date] between @start and @end group by CAST(Date AS DATE) order by CAST(Date AS DATE)";
+
+                command = new SqlCommand(sql, conn);
+                command.Parameters.AddWithValue("@idfk", idfk);
+
+                string start = DateTime.Parse(row["Data_Set"].ToString()).ToString("yyyy-MM-dd HH:mm:ss");
+                string end = row["endDate"].ToString() == "" ? DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") : DateTime.Parse(row["endDate"].ToString()).AddMinutes(1).ToString("yyyy-MM-dd HH:mm:ss");
+                // DateTime end = DateTime.ParseExact(val, "dd.M.yyyy hh:mm:ss", null);
+
+                command.Parameters.AddWithValue("@start", start);
+                command.Parameters.AddWithValue("@end", end);
+
+                DataTable dt = new DataTable();
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+
+                adapter.Fill(dt);
+
+                sql = @" set language us_english;
+                        SELECT 
+		                CONVERT(VARCHAR(10), Date, 104) as date
+                      ,[Volume]
+	                  ,[Number_mould]
+                    FROM [MFU].[dbo].[Volume_mess]
+                    where Number_fk = @idfk and [Date] between @start and @end order by CAST(Date AS DATE)";
+
+                command = new SqlCommand(sql, conn);
+
+                command.Parameters.AddWithValue("@start", start);
+                command.Parameters.AddWithValue("@end", end);
+                command.Parameters.AddWithValue("@idfk", idfk);
+
+                DataTable dt2 = new DataTable();
+                SqlDataAdapter adapter2 = new SqlDataAdapter(command);
+
+                adapter2.Fill(dt2);
+
+                worksheet.Range[worksheet.Cells[newRows + 5, cnt + 1], worksheet.Cells[newRows + 5, cnt + dt.Rows.Count]].Merge();
+                worksheet.Range[worksheet.Cells[newRows + 5, cnt + 1], worksheet.Cells[newRows + 5, cnt + dt.Rows.Count]].Interior.Color = myColor[colorCount];
+                worksheet.Range[worksheet.Cells[newRows + 5, cnt + 1], worksheet.Cells[newRows + 5, cnt + dt.Rows.Count]] = "скорректированный и/или установленный обьем " + row["avgval"] + " +-0,25";
+
+
+                foreach (DataRow tabRow in dt.Rows)
+                {
+                    // rowMergeView2.Columns.Add(new DataGridViewColumn() { CellTemplate = new DataGridViewTextBoxCell() });
+                    // rowMergeView2.Rows[0].Cells[cnt].Style.BackColor = myColor[colorCount];
+                    // rowMergeView2.Rows[1].Cells[cnt].Value = tabRow["date"];
+
+                    worksheet.Cells[newRows + 7, cnt + 1] = tabRow["date"];
+                    range = worksheet.Cells[newRows + 7, cnt + 1];
+                    range.Interior.Color = myColor[colorCount];
+
+                    //rowMergeView2.Rows[Convert.ToInt32(el.Field<string>("Number_mould")) + 1].Cells[cnt].Value = el.Field<string>("Volume");
+                    dt2.AsEnumerable().Where(x => x.Field<string>("date") == tabRow["date"].ToString()).ToList().ForEach(el => { worksheet.Cells[Convert.ToInt32(el.Field<string>("Number_mould")) + newRows + 7, cnt + 1] = el.Field<string>("Volume"); fillColor(Convert.ToInt32(el.Field<string>("Number_mould")) + newRows + 7, cnt + 1, el.Field<string>("Volume"), row["avgval"].ToString(), worksheet); });
+
+                    cnt++;
+                }
+
+                colorCount++;
+            }
+
+            sql = @"SELECT 
+		            Volume as volume, Number_mould
+                    FROM [MFU].[dbo].[Volume_mess] as a
+                    where Date = (SELECT MAX(DATE) FROM [MFU].[dbo].[Volume_mess] WHERE Number_mould = a.Number_mould AND Number_fk = @idfk)";
+
+            command = new SqlCommand(sql, conn);
+            command.Parameters.AddWithValue("@idfk", idfk);
+
+            DataTable dt3 = new DataTable();
+            SqlDataAdapter adapter3 = new SqlDataAdapter(command);
+
+            adapter3.Fill(dt3);
+
+            foreach (DataRow item in dt3.Rows)
+            {
+                // rowMergeView2.Rows[Convert.ToInt32(item["Number_mould"]) + 1].Cells[1].Value = item["Volume"];
+                worksheet.Cells[Convert.ToInt32(item["Number_mould"]) + newRows + 7, 2] = item["Volume"];
+            }
+
+            conn.Close();
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Excels files (*.xlsx)|*.xlsx";
+
+            saveFileDialog.FilterIndex = 0;
+            saveFileDialog.RestoreDirectory = true;
+            saveFileDialog.CreatePrompt = true;
+            saveFileDialog.FileName = null;
+            saveFileDialog.Title = "Где сохранить?";
+            saveFileDialog.ShowDialog();
+
+            workbook.SaveAs(saveFileDialog.FileName);
+            excelApp.Quit();
+            Marshal.ReleaseComObject(workbook);
+            Marshal.ReleaseComObject(excelApp);
+
+            System.Diagnostics.Process.Start(saveFileDialog.FileName);
         }
     }
 }
