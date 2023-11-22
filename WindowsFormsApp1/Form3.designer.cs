@@ -29,17 +29,17 @@ namespace WindowsFormsApp1
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series20 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series21 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -69,6 +69,7 @@ namespace WindowsFormsApp1
             this.panel9 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.button6 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -106,45 +107,45 @@ namespace WindowsFormsApp1
             this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.chart1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.chart1.BorderlineColor = System.Drawing.Color.Black;
-            chartArea1.AxisX.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(98)))), ((int)(((byte)(112)))));
-            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(98)))), ((int)(((byte)(112)))));
-            chartArea1.AxisX.Title = "Номера форм";
-            chartArea1.AxisX.TitleFont = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            chartArea1.AxisY.LineColor = System.Drawing.Color.DimGray;
-            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.Gray;
-            chartArea1.AxisY.Title = "Объем";
-            chartArea1.AxisY.TitleFont = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            chartArea1.BackColor = System.Drawing.SystemColors.ControlLight;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Enabled = false;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea5.AxisX.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(98)))), ((int)(((byte)(112)))));
+            chartArea5.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(98)))), ((int)(((byte)(112)))));
+            chartArea5.AxisX.Title = "Номера форм";
+            chartArea5.AxisX.TitleFont = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            chartArea5.AxisY.LineColor = System.Drawing.Color.DimGray;
+            chartArea5.AxisY.MajorGrid.LineColor = System.Drawing.Color.Gray;
+            chartArea5.AxisY.Title = "Объем";
+            chartArea5.AxisY.TitleFont = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            chartArea5.BackColor = System.Drawing.SystemColors.ControlLight;
+            chartArea5.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea5);
+            legend5.Enabled = false;
+            legend5.Name = "Legend1";
+            this.chart1.Legends.Add(legend5);
             this.chart1.Location = new System.Drawing.Point(0, 113);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series1.BorderColor = System.Drawing.SystemColors.Control;
-            series1.ChartArea = "ChartArea1";
-            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(82)))), ((int)(((byte)(64)))));
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            series1.SmartLabelStyle.CalloutBackColor = System.Drawing.Color.Black;
-            series1.SmartLabelStyle.CalloutLineAnchorCapStyle = System.Windows.Forms.DataVisualization.Charting.LineAnchorCapStyle.Diamond;
-            series1.SmartLabelStyle.CalloutStyle = System.Windows.Forms.DataVisualization.Charting.LabelCalloutStyle.Box;
-            series1.SmartLabelStyle.IsMarkerOverlappingAllowed = true;
-            series2.BorderColor = System.Drawing.SystemColors.Control;
-            series2.ChartArea = "ChartArea1";
-            series2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(63)))), ((int)(((byte)(105)))));
-            series2.Legend = "Legend1";
-            series2.Name = "Series2";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Color = System.Drawing.Color.OrangeRed;
-            series3.Legend = "Legend1";
-            series3.Name = "Series3";
-            this.chart1.Series.Add(series1);
-            this.chart1.Series.Add(series2);
-            this.chart1.Series.Add(series3);
+            series15.BorderColor = System.Drawing.SystemColors.Control;
+            series15.ChartArea = "ChartArea1";
+            series15.Color = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(82)))), ((int)(((byte)(64)))));
+            series15.Legend = "Legend1";
+            series15.Name = "Series1";
+            series15.SmartLabelStyle.CalloutBackColor = System.Drawing.Color.Black;
+            series15.SmartLabelStyle.CalloutLineAnchorCapStyle = System.Windows.Forms.DataVisualization.Charting.LineAnchorCapStyle.Diamond;
+            series15.SmartLabelStyle.CalloutStyle = System.Windows.Forms.DataVisualization.Charting.LabelCalloutStyle.Box;
+            series15.SmartLabelStyle.IsMarkerOverlappingAllowed = true;
+            series16.BorderColor = System.Drawing.SystemColors.Control;
+            series16.ChartArea = "ChartArea1";
+            series16.Color = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(63)))), ((int)(((byte)(105)))));
+            series16.Legend = "Legend1";
+            series16.Name = "Series2";
+            series17.ChartArea = "ChartArea1";
+            series17.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series17.Color = System.Drawing.Color.OrangeRed;
+            series17.Legend = "Legend1";
+            series17.Name = "Series3";
+            this.chart1.Series.Add(series15);
+            this.chart1.Series.Add(series16);
+            this.chart1.Series.Add(series17);
             this.chart1.Size = new System.Drawing.Size(1684, 328);
             this.chart1.TabIndex = 3;
             this.chart1.Text = "chart2";
@@ -154,47 +155,47 @@ namespace WindowsFormsApp1
             this.chart2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.chart2.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.chart2.BorderlineColor = System.Drawing.Color.Black;
-            chartArea2.AxisX.LineColor = System.Drawing.Color.DimGray;
-            chartArea2.AxisX.MajorGrid.LineColor = System.Drawing.Color.Gray;
-            chartArea2.AxisX.Title = "Номера форм";
-            chartArea2.AxisX.TitleFont = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            chartArea2.AxisY.LineColor = System.Drawing.Color.DimGray;
-            chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.Gray;
-            chartArea2.AxisY.Title = "Номинальная вместимость";
-            chartArea2.AxisY.TitleFont = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            chartArea2.BackColor = System.Drawing.SystemColors.ControlLight;
-            chartArea2.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea2);
-            legend2.Enabled = false;
-            legend2.Name = "Legend1";
-            this.chart2.Legends.Add(legend2);
+            chartArea6.AxisX.LineColor = System.Drawing.Color.DimGray;
+            chartArea6.AxisX.MajorGrid.LineColor = System.Drawing.Color.Gray;
+            chartArea6.AxisX.Title = "Номера форм";
+            chartArea6.AxisX.TitleFont = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            chartArea6.AxisY.LineColor = System.Drawing.Color.DimGray;
+            chartArea6.AxisY.MajorGrid.LineColor = System.Drawing.Color.Gray;
+            chartArea6.AxisY.Title = "Номинальная вместимость";
+            chartArea6.AxisY.TitleFont = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            chartArea6.BackColor = System.Drawing.SystemColors.ControlLight;
+            chartArea6.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea6);
+            legend6.Enabled = false;
+            legend6.Name = "Legend1";
+            this.chart2.Legends.Add(legend6);
             this.chart2.Location = new System.Drawing.Point(0, 496);
             this.chart2.Name = "chart2";
             this.chart2.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series4.BorderColor = System.Drawing.SystemColors.Control;
-            series4.ChartArea = "ChartArea1";
-            series4.Color = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(82)))), ((int)(((byte)(64)))));
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            series5.BorderColor = System.Drawing.SystemColors.Control;
-            series5.ChartArea = "ChartArea1";
-            series5.Color = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(55)))), ((int)(((byte)(65)))));
-            series5.Legend = "Legend1";
-            series5.Name = "Series2";
-            series6.BorderColor = System.Drawing.SystemColors.Control;
-            series6.ChartArea = "ChartArea1";
-            series6.Color = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(63)))), ((int)(((byte)(105)))));
-            series6.Legend = "Legend1";
-            series6.Name = "Series3";
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series7.Color = System.Drawing.Color.OrangeRed;
-            series7.Legend = "Legend1";
-            series7.Name = "Series4";
-            this.chart2.Series.Add(series4);
-            this.chart2.Series.Add(series5);
-            this.chart2.Series.Add(series6);
-            this.chart2.Series.Add(series7);
+            series18.BorderColor = System.Drawing.SystemColors.Control;
+            series18.ChartArea = "ChartArea1";
+            series18.Color = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(82)))), ((int)(((byte)(64)))));
+            series18.Legend = "Legend1";
+            series18.Name = "Series1";
+            series19.BorderColor = System.Drawing.SystemColors.Control;
+            series19.ChartArea = "ChartArea1";
+            series19.Color = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(55)))), ((int)(((byte)(65)))));
+            series19.Legend = "Legend1";
+            series19.Name = "Series2";
+            series20.BorderColor = System.Drawing.SystemColors.Control;
+            series20.ChartArea = "ChartArea1";
+            series20.Color = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(63)))), ((int)(((byte)(105)))));
+            series20.Legend = "Legend1";
+            series20.Name = "Series3";
+            series21.ChartArea = "ChartArea1";
+            series21.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series21.Color = System.Drawing.Color.OrangeRed;
+            series21.Legend = "Legend1";
+            series21.Name = "Series4";
+            this.chart2.Series.Add(series18);
+            this.chart2.Series.Add(series19);
+            this.chart2.Series.Add(series20);
+            this.chart2.Series.Add(series21);
             this.chart2.Size = new System.Drawing.Size(1684, 303);
             this.chart2.TabIndex = 4;
             this.chart2.Text = "chart1";
@@ -206,7 +207,7 @@ namespace WindowsFormsApp1
             this.nameFK.ForeColor = System.Drawing.SystemColors.Control;
             this.nameFK.Location = new System.Drawing.Point(23, 5);
             this.nameFK.Name = "nameFK";
-            this.nameFK.Size = new System.Drawing.Size(58, 16);
+            this.nameFK.Size = new System.Drawing.Size(57, 16);
             this.nameFK.TabIndex = 5;
             this.nameFK.Text = "nameFK";
             // 
@@ -215,7 +216,7 @@ namespace WindowsFormsApp1
             this.label33.AutoSize = true;
             this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label33.ForeColor = System.Drawing.SystemColors.Control;
-            this.label33.Location = new System.Drawing.Point(699, 5);
+            this.label33.Location = new System.Drawing.Point(606, 5);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(113, 15);
             this.label33.TabIndex = 2;
@@ -228,7 +229,7 @@ namespace WindowsFormsApp1
             this.weight.ForeColor = System.Drawing.SystemColors.Control;
             this.weight.Location = new System.Drawing.Point(42, 4);
             this.weight.Name = "weight";
-            this.weight.Size = new System.Drawing.Size(46, 16);
+            this.weight.Size = new System.Drawing.Size(45, 16);
             this.weight.TabIndex = 5;
             this.weight.Text = "weight";
             this.weight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -240,7 +241,7 @@ namespace WindowsFormsApp1
             this.date.ForeColor = System.Drawing.SystemColors.Control;
             this.date.Location = new System.Drawing.Point(36, 4);
             this.date.Name = "date";
-            this.date.Size = new System.Drawing.Size(35, 16);
+            this.date.Size = new System.Drawing.Size(34, 16);
             this.date.TabIndex = 5;
             this.date.Text = "date";
             // 
@@ -249,7 +250,7 @@ namespace WindowsFormsApp1
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.ForeColor = System.Drawing.SystemColors.Control;
-            this.label3.Location = new System.Drawing.Point(872, 5);
+            this.label3.Location = new System.Drawing.Point(779, 5);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(239, 15);
             this.label3.TabIndex = 2;
@@ -260,7 +261,7 @@ namespace WindowsFormsApp1
             this.whe.AutoSize = true;
             this.whe.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.whe.ForeColor = System.Drawing.SystemColors.Control;
-            this.whe.Location = new System.Drawing.Point(1133, 5);
+            this.whe.Location = new System.Drawing.Point(1040, 5);
             this.whe.Name = "whe";
             this.whe.Size = new System.Drawing.Size(170, 15);
             this.whe.TabIndex = 2;
@@ -273,7 +274,7 @@ namespace WindowsFormsApp1
             this.vol.ForeColor = System.Drawing.SystemColors.Control;
             this.vol.Location = new System.Drawing.Point(40, 3);
             this.vol.Name = "vol";
-            this.vol.Size = new System.Drawing.Size(26, 16);
+            this.vol.Size = new System.Drawing.Size(25, 16);
             this.vol.TabIndex = 5;
             this.vol.Text = "vol";
             this.vol.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -285,7 +286,7 @@ namespace WindowsFormsApp1
             this.cap.ForeColor = System.Drawing.SystemColors.Control;
             this.cap.Location = new System.Drawing.Point(33, 3);
             this.cap.Name = "cap";
-            this.cap.Size = new System.Drawing.Size(31, 16);
+            this.cap.Size = new System.Drawing.Size(30, 16);
             this.cap.TabIndex = 5;
             this.cap.Text = "cap";
             // 
@@ -316,6 +317,7 @@ namespace WindowsFormsApp1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(75)))));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.button6);
             this.panel1.Controls.Add(this.panel7);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.panel6);
@@ -337,7 +339,7 @@ namespace WindowsFormsApp1
             // 
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel7.Controls.Add(this.date);
-            this.panel7.Location = new System.Drawing.Point(1363, 25);
+            this.panel7.Location = new System.Drawing.Point(1270, 25);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(136, 25);
             this.panel7.TabIndex = 14;
@@ -347,7 +349,7 @@ namespace WindowsFormsApp1
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label5.ForeColor = System.Drawing.SystemColors.Control;
-            this.label5.Location = new System.Drawing.Point(1343, 5);
+            this.label5.Location = new System.Drawing.Point(1250, 5);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(173, 15);
             this.label5.TabIndex = 14;
@@ -357,7 +359,7 @@ namespace WindowsFormsApp1
             // 
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel6.Controls.Add(this.cap);
-            this.panel6.Location = new System.Drawing.Point(1152, 25);
+            this.panel6.Location = new System.Drawing.Point(1059, 25);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(129, 25);
             this.panel6.TabIndex = 13;
@@ -375,7 +377,7 @@ namespace WindowsFormsApp1
             // 
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel5.Controls.Add(this.vol);
-            this.panel5.Location = new System.Drawing.Point(900, 25);
+            this.panel5.Location = new System.Drawing.Point(807, 25);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(168, 25);
             this.panel5.TabIndex = 12;
@@ -384,7 +386,7 @@ namespace WindowsFormsApp1
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.weight);
-            this.panel3.Location = new System.Drawing.Point(680, 25);
+            this.panel3.Location = new System.Drawing.Point(587, 25);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(144, 25);
             this.panel3.TabIndex = 12;
@@ -472,6 +474,20 @@ namespace WindowsFormsApp1
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
+            // button6
+            // 
+            this.button6.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button6.ForeColor = System.Drawing.Color.Black;
+            this.button6.Location = new System.Drawing.Point(1485, 20);
+            this.button6.Margin = new System.Windows.Forms.Padding(2);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(138, 30);
+            this.button6.TabIndex = 31;
+            this.button6.Text = "Карта объемов";
+            this.button6.UseVisualStyleBackColor = false;
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -543,5 +559,6 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button button6;
     }
 }

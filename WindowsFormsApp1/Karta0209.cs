@@ -89,7 +89,7 @@ namespace WindowsFormsApp1
             int cnt = 2;
 
             Excel.Application excelApp = new Excel.Application();
-            Excel.Workbook workbook = excelApp.Workbooks.Open(@"D:\Work\Завод бутылок\Статстика\Statistic_Git\WindowsFormsApp1\bin\Debug\0209.xlsx");
+            Excel.Workbook workbook = excelApp.Workbooks.Open(@"D:\ISKRA\Statistic_Git\отчет 31_07_23\WindowsFormsApp1\bin\Release\0209.xlsx");
             Excel.Worksheet worksheet = workbook.ActiveSheet;
 
            // rowMergeView2.Rows.Add(101);
