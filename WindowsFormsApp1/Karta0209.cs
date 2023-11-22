@@ -15,7 +15,7 @@ namespace WindowsFormsApp1
 {
     public partial class Karta0209 : Form
     {
-        Color[] myColor = new Color[] { Color.LightBlue, Color.LightCoral, Color.LightGreen, Color.LightCyan, Color.LightSeaGreen , Color.LightSeaGreen};
+        Color[] myColor = new Color[] { Color.LightBlue, Color.LightCoral, Color.LightGreen, Color.LightCyan, Color.LightSeaGreen , Color.LightSalmon, Color.LightSlateGray, Color.LightYellow, Color.LightSteelBlue};
 
         public Karta0209()
         {
@@ -89,14 +89,16 @@ namespace WindowsFormsApp1
             int cnt = 2;
 
             Excel.Application excelApp = new Excel.Application();
-            Excel.Workbook workbook = excelApp.Workbooks.Open(@"D:\ISKRA\Statistic_Git\отчет 31_07_23\WindowsFormsApp1\bin\Release\0209.xlsx");
+            //  Excel.Workbook workbook = excelApp.Workbooks.Open(@"D:\ISKRA\Statistic_Git\отчет 31_07_23\WindowsFormsApp1\bin\Release\0209.xlsx");
+            Excel.Workbook workbook = excelApp.Workbooks.Open(@"0209.xlsx");
+
             Excel.Worksheet worksheet = workbook.ActiveSheet;
 
            // rowMergeView2.Rows.Add(101);
 
             int newRows = 0;
 
-            if(rowMergeView1.Rows.Count > 2)
+            if(rowMergeView1.Rows.Count >= 2)
             {
                 for(int  n = 0; n < rowMergeView1.Rows.Count - 1; n++)
                 {
