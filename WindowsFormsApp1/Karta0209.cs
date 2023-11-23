@@ -275,7 +275,8 @@ namespace WindowsFormsApp1
             var sql = @"select 
                             (cast(REPLACE(Set_min, ',','.') as float) + cast(REPLACE(Set_max, ',','.') as float)) / 2 as avgval,
 		                    Data_set,
-                            (select MAX([Data_set])
+                            (
+		                        select MIN(CONVERT(datetime, [Data_set], 105))
                                 from [MFU].[dbo].[Volume_ex] t2
                                 where t2.N_fk = @idfk and  
                                       CONVERT(datetime, t2.[Data_set], 105) > CONVERT(datetime, t.[Data_set], 105)
@@ -333,7 +334,7 @@ namespace WindowsFormsApp1
                 Excel.Range range = worksheet.Cells[3 + colorCount, 4];
                 range.Interior.Color = myColor[colorCount];
                 worksheet.Cells[3 + colorCount, 6] = row["Data_Set"];
-                worksheet.Cells[3 + colorCount, 8] = row["endDate"];
+                worksheet.Cells[3 + colorCount, 8] = row["endDate"].ToString();
 
 
                 //if (row.Cells.Count == 0) return;
