@@ -297,7 +297,7 @@ namespace WindowsFormsApp1
 
             Excel.Application excelApp = new Excel.Application();
             //  Excel.Workbook workbook = excelApp.Workbooks.Open(@"D:\ISKRA\Statistic_Git\отчет 31_07_23\WindowsFormsApp1\bin\Release\0209.xlsx");
-            Excel.Workbook workbook = excelApp.Workbooks.Open(@"0209.xlsx");
+            Excel.Workbook workbook = excelApp.Workbooks.Open(Environment.CurrentDirectory + "\\0209.xlsx");
 
             Excel.Worksheet worksheet = workbook.ActiveSheet;
 
