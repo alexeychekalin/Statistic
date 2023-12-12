@@ -14,6 +14,7 @@ namespace WindowsFormsApp1
     {
         List<double> _moulds = new List<double>();
         List<DotVolume> _dots = new List<DotVolume>();
+        List<DotWeight> _dotsWeight = new List<DotWeight>();
         private double _deltaWeight = 1;
         private double _deltaVolume = 1;
 
@@ -39,6 +40,14 @@ namespace WindowsFormsApp1
             public double X;
             public double Y1;
             public double Y2;
+        }
+
+        public class DotWeight
+        {
+            public double X;
+            public double Y1;
+            public double Y2;
+            public double Y3;
         }
 
         private void VolumeChart()
@@ -215,6 +224,7 @@ namespace WindowsFormsApp1
 
         private void WeightChart()
         {
+            _dotsWeight.Clear();
             var sqlConnection = DBWalker.GetConnection(Resources.Server, Resources.User, Resources.Password, Resources.secure);
             try
             {
@@ -278,27 +288,17 @@ namespace WindowsFormsApp1
                         double[] result;
                         foreach (var mold in _moulds)
                         {
-                           // if (chart2Type1.Checked)
-                           // {
-                                result = db.Tables[0].AsEnumerable()
-                                    .OrderByDescending(r => r.Field<DateTime>("Date"))
-                                    .Where(r => r.Field<string>("Num_form") == mold.ToString())
-                                    .Select(r => r.Field<Double>("Level_b")).ToArray();
+                            result = db.Tables[0].AsEnumerable()
+                                .OrderByDescending(r => r.Field<DateTime>("Date"))
+                                .Where(r => r.Field<string>("Num_form") == mold.ToString())
+                                .Select(r => r.Field<Double>("Level_b")).ToArray();
 
-                                var mf = db.Tables[0].AsEnumerable()
-                                    .OrderByDescending(r => r.Field<DateTime>("Date"))
-                                    .Where(r => r.Field<string>("Num_form") == mold.ToString())
-                                    .Select(r => r.Field<Double>("Weight_b")).ToArray();
-                            //}
+                            var mf = db.Tables[0].AsEnumerable()
+                                .OrderByDescending(r => r.Field<DateTime>("Date"))
+                                .Where(r => r.Field<string>("Num_form") == mold.ToString())
+                                .Select(r => r.Field<Double>("Weight_b")).ToArray();
+
                             /*
-                             else
-                             {
-                                 result = db.Tables[0].AsEnumerable()
-                                     .OrderByDescending(r => r.Field<DateTime>("Date"))
-                                     .Where(r => r.Field<string>("Number_mould") == mold.ToString())
-                                     .Select(r => r.Field<Double>("Volume")).ToArray();
-                             }
-                            */
                             if (result.Length > 2)
                                 chart2.Series[0].Points.AddXY(mold, CalcVolume(result[2], new double[] {res, mf[0] }));
                             else
@@ -315,7 +315,27 @@ namespace WindowsFormsApp1
                                 chart2.Series[2].Points.AddXY(mold, 0);
 
                             chart2.Series[3].Points.AddXY(mold, Convert.ToDouble(cap.Text.Split('(')[0]));
+                            */
+                            var newDot = new DotWeight();
+                            newDot.X = mold;
 
+                            if (result.Length > 2)
+                                newDot.Y3 = CalcVolume(result[2], new double[] { res, mf[0] }); //chart2.Series[0].Points.AddXY(dot.X, CalcVolume(result[2], new double[] { res, mf[0] }));
+                            else
+                                newDot.Y3 = 0; //chart2.Series[0].Points.AddXY(dot.X, 0);
+
+                            if (result.Length > 1)
+                                newDot.Y2 = CalcVolume(result[1], new double[] { res, mf[0] }); //chart2.Series[1].Points.AddXY(dot.X, CalcVolume(result[1], new double[] { res, mf[0] }));
+                            else
+                                newDot.Y2 = 0; //chart2.Series[1].Points.AddXY(dot.X, 0);
+
+                            if (result.Length > 0)
+                                newDot.Y1 = CalcVolume(result[0], new double[] { res, mf[0] }); //chart2.Series[2].Points.AddXY(dot.X, CalcVolume(result[0], new double[] { res, mf[0] }));
+                            else
+                                newDot.Y1 = 0; //chart2.Series[2].Points.AddXY(dot.X, 0);
+
+                            // chart2.Series[3].Points.AddXY(dot.X, Convert.ToDouble(cap.Text.Split('(')[0]));
+                            _dotsWeight.Add(newDot);
                         }
                     }
                     else
@@ -323,46 +343,42 @@ namespace WindowsFormsApp1
                         double[] result;
                         foreach (var dot in _dots)
                         {
-                           // if (chart2Type1.Checked)
-                           // {
-                                result = db.Tables[0].AsEnumerable()
-                                    .OrderByDescending(r => r.Field<DateTime>("Date"))
-                                    .Where(r => r.Field<string>("Num_form") == dot.X.ToString())
-                                    .Select(r => r.Field<Double>("Level_b")).ToArray();
+                            result = db.Tables[0].AsEnumerable()
+                                .OrderByDescending(r => r.Field<DateTime>("Date"))
+                                .Where(r => r.Field<string>("Num_form") == dot.X.ToString())
+                                .Select(r => r.Field<Double>("Level_b")).ToArray();
 
-                                var mf = db.Tables[0].AsEnumerable()
-                                    .OrderByDescending(r => r.Field<DateTime>("Date"))
-                                    .Where(r => r.Field<string>("Num_form") == dot.X.ToString())
-                                    .Select(r => r.Field<Double>("Weight_b")).ToArray();
-                            // }
-                            /*
-                            else
-                            {
-                                result = db.Tables[0].AsEnumerable()
-                                    .OrderByDescending(r => r.Field<DateTime>("Date"))
-                                    .Where(r => r.Field<string>("Number_mould") == dot.X.ToString())
-                                    .Select(r => r.Field<Double>("Volume")).ToArray();
-                            }
-                            */
+                            var mf = db.Tables[0].AsEnumerable()
+                                .OrderByDescending(r => r.Field<DateTime>("Date"))
+                                .Where(r => r.Field<string>("Num_form") == dot.X.ToString())
+                                .Select(r => r.Field<Double>("Weight_b")).ToArray();
+
+                            var newDot = new DotWeight();
+                            newDot.X = dot.X;
+
                             if (result.Length > 2)
-                                chart2.Series[0].Points.AddXY(dot.X, CalcVolume(result[2], new double[] { res, mf[0] }));
+                                newDot.Y3 = CalcVolume(result[2], new double[] { res, mf[0] }); //chart2.Series[0].Points.AddXY(dot.X, CalcVolume(result[2], new double[] { res, mf[0] }));
                             else
-                                chart2.Series[0].Points.AddXY(dot.X, 0);
+                               newDot.Y3 = 0; //chart2.Series[0].Points.AddXY(dot.X, 0);
 
                             if (result.Length > 1)
-                                chart2.Series[1].Points.AddXY(dot.X, CalcVolume(result[1], new double[] { res, mf[0] }));
+                               newDot.Y2 = CalcVolume(result[1], new double[] { res, mf[0] }); //chart2.Series[1].Points.AddXY(dot.X, CalcVolume(result[1], new double[] { res, mf[0] }));
                             else
-                                chart2.Series[1].Points.AddXY(dot.X, 0);
+                               newDot.Y2 = 0; //chart2.Series[1].Points.AddXY(dot.X, 0);
 
                             if (result.Length > 0)
-                                chart2.Series[2].Points.AddXY(dot.X, CalcVolume(result[0], new double[] { res, mf[0] }));
+                                newDot.Y1 = CalcVolume(result[0], new double[] { res, mf[0] }); //chart2.Series[2].Points.AddXY(dot.X, CalcVolume(result[0], new double[] { res, mf[0] }));
                             else
-                                chart2.Series[2].Points.AddXY(dot.X, 0);
+                                newDot.Y1 = 0; //chart2.Series[2].Points.AddXY(dot.X, 0);
 
-                            chart2.Series[3].Points.AddXY(dot.X, Convert.ToDouble(cap.Text.Split('(')[0]));
-
+                           // chart2.Series[3].Points.AddXY(dot.X, Convert.ToDouble(cap.Text.Split('(')[0]));
+                            _dotsWeight.Add(newDot);
                         }
                     }
+
+                    if(ascOrder.Checked) _dotsWeight.Sort((one, two) => one.Y3.CompareTo(two.Y3));
+
+                    _dotsWeight.ForEach(RePaintSecond);
 
                     chart2.ChartAreas[0].AxisX.Interval = 1;
                     chart2.Series[0].IsXValueIndexed = true;
@@ -465,8 +481,14 @@ namespace WindowsFormsApp1
             chart1.Series[2].Points.AddXY(dot.X, Convert.ToDouble(vol.Text.Split('(')[0]));
             chart1.Series[0].Points.AddXY(dot.X, dot.Y1);
             chart1.Series[1].Points.AddXY(dot.X, dot.Y2);
-           
+        }
 
+        private void RePaintSecond(DotWeight dot)
+        {
+            chart2.Series[3].Points.AddXY(dot.X, Convert.ToDouble(vol.Text.Split('(')[0]));
+            chart2.Series[0].Points.AddXY(dot.X, dot.Y1);
+            chart2.Series[1].Points.AddXY(dot.X, dot.Y2);
+            chart2.Series[2].Points.AddXY(dot.X, dot.Y3);
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -660,6 +682,11 @@ namespace WindowsFormsApp1
         private void button6_Click(object sender, EventArgs e)
         {
             new Karta0209(comboBox1.Text);
+        }
+
+        private void ascOrder_CheckedChanged(object sender, EventArgs e)
+        {
+            WeightChart();
         }
     }
 }
