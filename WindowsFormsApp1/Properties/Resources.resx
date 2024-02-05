@@ -118,18 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="secure" xml:space="preserve">
-    <value>false</value>
+    <value>true</value>
   </data>
   <data name="User" xml:space="preserve">
-    <value>alex</value>
+    <value>sa</value>
   </data>
   <data name="Server" xml:space="preserve">
-    <value>(LocalDB)\MSSQLLocalDB</value>
+    <value>ALEXCHE\MSSQLSERVER01</value>
   </data>
   <data name="LineControl" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>12345</value>
+    <value>A212asd</value>
   </data>
 </root>

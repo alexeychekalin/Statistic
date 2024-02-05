@@ -70,7 +70,7 @@ namespace WindowsFormsApp1.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на 12345.
+        ///   Ищет локализованную строку, похожую на A212asd.
         /// </summary>
         internal static string Password {
             get {
@@ -79,7 +79,7 @@ namespace WindowsFormsApp1.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на false.
+        ///   Ищет локализованную строку, похожую на true.
         /// </summary>
         internal static string secure {
             get {
@@ -88,7 +88,7 @@ namespace WindowsFormsApp1.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на (LocalDB)\MSSQLLocalDB.
+        ///   Ищет локализованную строку, похожую на ALEXCHE\MSSQLSERVER01.
         /// </summary>
         internal static string Server {
             get {
@@ -97,7 +97,7 @@ namespace WindowsFormsApp1.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на alex.
+        ///   Ищет локализованную строку, похожую на sa.
         /// </summary>
         internal static string User {
             get {
