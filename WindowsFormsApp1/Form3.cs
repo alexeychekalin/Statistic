@@ -678,15 +678,12 @@ namespace WindowsFormsApp1
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             _ = checkBox1.Checked ? chart1.Series[0].Enabled = false : chart1.Series[0].Enabled = true;
-            
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
             //new Karta0209(comboBox1.Text);
             DrawExcel(comboBox1.Text);
-
-
         }
 
         private void fillColor(int r, int c, string val, string eq, Excel.Worksheet wh)
@@ -865,12 +862,15 @@ namespace WindowsFormsApp1
             saveFileDialog.Title = "Где сохранить?";
             saveFileDialog.ShowDialog();
 
-            workbook.SaveAs(saveFileDialog.FileName);
+            if(saveFileDialog.FileName != "")
+                workbook.SaveAs(saveFileDialog.FileName);
+
             excelApp.Quit();
             Marshal.ReleaseComObject(workbook);
             Marshal.ReleaseComObject(excelApp);
 
-            System.Diagnostics.Process.Start(saveFileDialog.FileName);
+            if (saveFileDialog.FileName != "")
+                System.Diagnostics.Process.Start(saveFileDialog.FileName);
         }
 
 
