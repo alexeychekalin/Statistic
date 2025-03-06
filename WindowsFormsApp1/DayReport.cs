@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using WindowsFormsApp1.Properties;
+using Statistic.Properties;
 
-namespace WindowsFormsApp1
+namespace Statistic
 {
     public partial class DayReport : Form
     {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WindowsFormsApp1.Properties {
+namespace Statistic.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace WindowsFormsApp1.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WindowsFormsApp1.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Statistic.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -70,7 +70,7 @@ namespace WindowsFormsApp1.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на 12345.
+        ///   Ищет локализованную строку, похожую на A212asd.
         /// </summary>
         internal static string Password {
             get {
@@ -88,7 +88,7 @@ namespace WindowsFormsApp1.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на (LocalDB)\MSSQLLocalDB.
+        ///   Ищет локализованную строку, похожую на SERVERISKRA.
         /// </summary>
         internal static string Server {
             get {
@@ -97,7 +97,7 @@ namespace WindowsFormsApp1.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на alex.
+        ///   Ищет локализованную строку, похожую на sa.
         /// </summary>
         internal static string User {
             get {

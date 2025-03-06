@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace Statistic
 {
     class DBWalker
     {

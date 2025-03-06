@@ -121,15 +121,15 @@
     <value>false</value>
   </data>
   <data name="User" xml:space="preserve">
-    <value>alex</value>
+    <value>sa</value>
   </data>
   <data name="Server" xml:space="preserve">
-    <value>(LocalDB)\MSSQLLocalDB</value>
+    <value>SERVERISKRA</value>
   </data>
   <data name="LineControl" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>12345</value>
+    <value>A212asd</value>
   </data>
 </root>

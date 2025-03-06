@@ -1,5 +1,5 @@
 ﻿
-namespace WindowsFormsApp1
+namespace Statistic
 {
     partial class Form2
     {

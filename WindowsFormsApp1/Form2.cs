@@ -4,9 +4,9 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
-using WindowsFormsApp1.Properties;
+using Statistic.Properties;
 
-namespace WindowsFormsApp1
+namespace Statistic
 {
     public partial class Form2 : Form
     {
